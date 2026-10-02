@@ -1,13 +1,24 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+def _get_key() -> str:
+    key = os.getenv("GROQ_API_KEY")
+    if not key:
+        try:
+            import streamlit as st
+            key = st.secrets.get("GROQ_API_KEY")
+        except Exception:
+            key = None
+    return (key or "").strip().strip("\"'")
+
+
+GROQ_API_KEY = _get_key()
 
 if not GROQ_API_KEY:
-    print("\n[Warning] GROQ_API_KEY is not set in your .env file.")
-    print("Please set your API key in .env before initiating chat calls.\n")
+    print("\n[Warning] GROQ_API_KEY is not set (.env locally, or Secrets on Streamlit Cloud).\n")
 
 DEFAULT_MODEL = "openai/gpt-oss-120b"
 
