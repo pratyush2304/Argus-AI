@@ -1,4 +1,4 @@
-# Groq chatbot — premium UI
+# ARGUS AI — premium UI
 
 Streamlit + Groq chatbot with a Linear/Raycast-style interface: spatial dark background, glass sidebar,
 tonal message cards, floating command-bar input, designed empty and error states.
